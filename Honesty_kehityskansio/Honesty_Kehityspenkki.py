@@ -174,14 +174,10 @@ class Form(QDialog):
 
         #ima = MovableImage()
 
-        #ima.load("/home/arad/Kuvat/plasmaball.jpg")
-
         #sce.addItem(ima)
         
 
-        """
-        TOIMIVAA, MUTTA EI KÄYTÖSSÄ
-        
+        """        
         pMap = pMap.scaled(100,100)        
         
         sce.addPixmap(pMap)
@@ -217,7 +213,6 @@ class Form(QDialog):
         
 
 
-        #qS = QSound("/home/arad/Musiikki/SoundClips/swamp-01.wav")
 
         #qS.play()
 
