@@ -12,6 +12,9 @@ print("Path to game files: "+str(pathToGameFiles))
 
 print("Image file in the game folder: "+pathToGameFiles+"/"+"ArgumenttiPlaceholder.jpg") #*.jpg")))
 
+#global hiiriPaikka
+#hiiriPaikka = [0,0]
+
 
 global widgettiKeskus
 widgettiKeskus = {}
@@ -91,6 +94,7 @@ class ClickableBox(QGraphicsEllipseItem):
 
         print("tss")
         
+        
 
         #print(dir(event))
 
@@ -128,6 +132,7 @@ class ClickableBox(QGraphicsEllipseItem):
         xEv = event.screenPos().toTuple()[0]
         yEv = event.screenPos().toTuple()[1]
         qMe.exec_(qMe.actions(),QPoint(xEv,yEv))
+        
 
 class ArgumentSettingsMenu(QMenu):
     
@@ -155,7 +160,7 @@ class EmptyAreaMenu(QMenu):
 
         #self.setParent(taustaScene)
 
-        print(dir(self))
+        #print(dir(self))
         
         def newArg():
 
@@ -189,14 +194,31 @@ class EmptyAreaMenu(QMenu):
             #poX = poXY[0]
             #poY = poXY[1]
             #print(self.children())
-            nel = nelo.setRect(100,100,144,154)
+            #xyrr = QCursor().pos().toTuple()
+            #print(dir(QCursor()))
+            #print(xyrr)
+            paikkaX = self.posStorage[0]
+            paikkaY = self.posStorage[1]
+            
+            nel = nelo.setRect(paikkaX,paikkaY,144,154)
             
             
             #argLista.append(nelo)
+
+        
             
 
         def logFal():
             print("New logical fallacy proposed")
+
+            
+
+            #newEv = QGraphicsSceneMouseEvent(QEvent.Type(0))
+            #print(self.pos())
+
+            #print(newEv.scenePos())
+            #print(QGraphicsSceneMouseEvent(self.event()).scenePos())
+            #print(self.pos().toTuple())
 
         def skip():
             print("Turn skipped")
@@ -225,10 +247,6 @@ class EmptyAreaMenu(QMenu):
         #mopY = self.pos().toTuple()[1]
 
         #print(self.pos().toTuple())
-        
-
-        
-
             
 
 class GrSc(QGraphicsScene):
@@ -268,10 +286,18 @@ class GrSc(QGraphicsScene):
         
     def contextMenuEvent(self,event):
 
+        print(event.scenePos().toTuple())
+
+        #hiiriPaikka = event.scenePos().toTuple()
+
         qMe = EmptyAreaMenu(self.parent())
         xEv = event.screenPos().toTuple()[0]
         yEv = event.screenPos().toTuple()[1]
+        qMe.posStorage = event.scenePos().toTuple()
         qMe.exec_(qMe.actions(),QPoint(xEv,yEv))
+
+        
+        
         #print(taustaScene.children())
         #widgettiKeskus["Mouse"] = QPoint(xEv,yEv)
         #print(taustaScene.items())
