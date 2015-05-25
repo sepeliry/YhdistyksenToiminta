@@ -19,6 +19,9 @@ print("Image file in the game folder: "+pathToGameFiles+"/"+"ArgumenttiPlacehold
 global widgettiKeskus
 widgettiKeskus = {}
 
+global clickTarget
+clickTarget = None
+
 """
 Argumentin rakenne keskuskirjastossa:
 avaimena toimii ClickableBox-objekti
@@ -70,6 +73,16 @@ boolean(vuorodata siitä, onko pelaajan vuoro vai ei)]
 #global argumenttiNumero
 #argumenttiNumero = 0
 
+
+#Debug category list, add and remove keywords below to
+#take a look at specific events
+
+debugList = []
+
+debugList.append("leftClick")
+debugList.append("argumentCreation")
+
+
 if "/" in sys.path[0]:
     print("Backslash identified")            
 else:
@@ -81,6 +94,75 @@ class GraphicsArea(QGraphicsView):
         super(GraphicsArea, self).__init__(parent)
 
         global taustaView
+
+class ArgumentDialog(QDialog):
+    def __init__(self, parent=None):
+        super(ArgumentDialog, self).__init__(parent)
+
+        self.setWindowTitle("New argument")
+
+        #Bottom layout
+        shelves = QVBoxLayout()
+
+        #Sublayouts
+        topRow = QHBoxLayout()
+        midRow = QHBoxLayout()
+        botRow = QHBoxLayout()
+
+        shelves.addSpacing(20)
+        shelves.addLayout(topRow)
+        shelves.addSpacing(20)
+        shelves.addLayout(midRow)
+        shelves.addSpacing(20)
+        shelves.addLayout(botRow)
+        shelves.addSpacing(20)
+
+        #Defining the widgets
+        instrLabel = QLabel("Give your argument a form")
+        argSpace = QTextEdit()
+        okButton = QPushButton("Done")
+        cancelButton = QPushButton("Cancel")
+
+        #Adding the widgets to the layouts
+        
+        topRow.addWidget(instrLabel)
+        midRow.addWidget(argSpace)
+        botRow.addWidget(okButton)
+        botRow.addWidget(cancelButton)
+
+        #Activating the bottom layout
+        self.setLayout(shelves)
+
+        #Button functionality
+
+        def argFinished():
+            #Move the contents of the argument from
+            #TextEdit to the target bubble
+            global clickTarget
+            #print("parent: "+self.parent())
+            if "argumentCreation" in debugList:
+                print(dir(clickTarget))
+            
+                #print(dir(self))
+                #print("TextEdit: "+str(dir(argSpace)))
+                print("Contained text: "+argSpace.toPlainText())
+            clickTarget.addText
+            self.close()
+
+            
+            #clickTarget.setText("rr")
+            
+            
+
+        def argCancel():
+            #Remove the target bubble
+            
+            self.close()
+        
+        self.connect(okButton,SIGNAL("clicked()"),argFinished)
+        self.connect(cancelButton,SIGNAL("clicked()"),argCancel)
+    
+
 
 class ClickableBox(QGraphicsEllipseItem):    
 
@@ -111,6 +193,10 @@ class ClickableBox(QGraphicsEllipseItem):
         boolean(Poistettu vai ei),
         tuple(argumentin paikkanäkymä koordinaateissa)]
         """
+        if event.button() == Qt.MouseButton.LeftButton:
+            if "argumentLeftClick" in debugList:
+                print("argumentLeftClick category acknowledged")
+
         #print(self.scenePos())
         
         #self.setAcceptDrops(True)
@@ -164,24 +250,9 @@ class EmptyAreaMenu(QMenu):
         
         def newArg():
 
-            #print(dir(self))
-
-            #print("ParentWidget:"+str(self.parentWidget()))
-
-            #print("Undermouse:"+str(self.underMouse()))
-
-            #print("Widgettikeskus: "+str(widgettiKeskus))
-
-            #print("ASFLKJN" +str(mousePosition))
-
-            #xMe = mousePosition[0]
-            #yMe = mousePosition[1]
-
-            #print(dir(self))
-            #print(self.pos())
-            #mopX = menuCoords[0]
-            #mopY = menuCoords[1]
-            print("New argument created")
+            if "argumentCreation" in debugList:
+                
+                print("New argument created")
 
             self.addAction("New connected argument")
 
@@ -190,6 +261,10 @@ class EmptyAreaMenu(QMenu):
             #keke = widgettiKeskus["Mouse"]
             nelo = ClickableBox()
             taustaScene.addItem(nelo)
+
+            global clickTarget
+
+            clickTarget = nelo
             #poXY = self.mapFromGlobal(widgettiKeskus["Mouse"]).toTuple()
             #poX = poXY[0]
             #poY = poXY[1]
@@ -197,21 +272,39 @@ class EmptyAreaMenu(QMenu):
             #xyrr = QCursor().pos().toTuple()
             #print(dir(QCursor()))
             #print(xyrr)
-            paikkaX = self.posStorage[0]
-            paikkaY = self.posStorage[1]
-            
-            nel = nelo.setRect(paikkaX,paikkaY,144,154)
-            
-            
-            #argLista.append(nelo)
 
-        
+            #Getting the correct coordinates for relocation
+            #TODO: when interested, implement this better
+
+            paikkaX = self.posStorage[0]-30
+            paikkaY = self.posStorage[1]-60
+
+            #Setting the position for the created item
+            
+            #nel =
+            nelo.setRect(paikkaX,paikkaY,154,154)           
+
+            #Opening a dialog box where the argument is
+            #given form (Label, text body, ok and cancel buttons)
+
+            argDialog = ArgumentDialog()
+            argDialog.exec_()
+            
+            #argLista.append(nelo)   self.actionHello = QAction(self)
+            #self.actionHello.setText("Woop")    
             
 
         def logFal():
             print("New logical fallacy proposed")
 
+            lfBox = ClickableBox()
+            taustaScene.addItem(nelo)
+
+            paikkaX = self.posStorage[0]-30
+            paikkaY = self.posStorage[1]-60
             
+            #lFal =
+            lfBox.setRect(paikkaX,paikkaY,154,154)
 
             #newEv = QGraphicsSceneMouseEvent(QEvent.Type(0))
             #print(self.pos())
@@ -286,7 +379,8 @@ class GrSc(QGraphicsScene):
         
     def contextMenuEvent(self,event):
 
-        print(event.scenePos().toTuple())
+        if "contextMenu" in debugList:            
+            print("contextmenu position: "+str(event.scenePos().toTuple()))
 
         #hiiriPaikka = event.scenePos().toTuple()
 
@@ -437,7 +531,13 @@ class Form(QDialog):
         self.menu = QMenu(self)
         self.menu.addAction(self.actionHello)
         self.setMenu(self.menu)
+        
         """
+
+        #def startArgDialog():
+            
+
+        #self.connect(EmptyAreaMenu, SIGNAL("Argument()"),startArgDialog)
 
 app = QApplication(sys.argv)
 form = Form()
