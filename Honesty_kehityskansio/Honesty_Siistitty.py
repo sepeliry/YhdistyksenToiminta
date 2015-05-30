@@ -22,6 +22,15 @@ widgettiKeskus = {}
 global clickTarget
 clickTarget = None
 
+global clickTargetPos
+clickTargetPos = None
+
+global bubbleSizeX
+bubbleSizeX = 154
+
+global bubbleSizeY
+bubbleSizeY = 154
+
 """
 Argumentin rakenne keskuskirjastossa:
 avaimena toimii ClickableBox-objekti
@@ -79,9 +88,13 @@ boolean(vuorodata siitä, onko pelaajan vuoro vai ei)]
 
 debugList = []
 
-debugList.append("leftClick")
-debugList.append("argumentCreation")
+#debugList.append("leftClick")
+#debugList.append("argumentCreation")
+#debugList.append("argumentLeftClick")
+debugList.append("argumentTextSize")
+debugList.append("mousePressEvent")
 
+#debugList.append()
 
 if "/" in sys.path[0]:
     print("Backslash identified")            
@@ -141,12 +154,54 @@ class ArgumentDialog(QDialog):
             global clickTarget
             #print("parent: "+self.parent())
             if "argumentCreation" in debugList:
-                print(dir(clickTarget))
+                #print(dir(clickTarget))
             
                 #print(dir(self))
                 #print("TextEdit: "+str(dir(argSpace)))
                 print("Contained text: "+argSpace.toPlainText())
-            clickTarget.addText
+            #clickTarget.addText
+
+            
+            newArgText = QGraphicsTextItem(argSpace.toPlainText(),
+                                           parent = clickTarget,
+                                           scene = widgettiKeskus["TaustaScene"])
+
+            #print(dir(clickTarget))
+            #print(clickTarget.mapFromScene())
+            #newArgText.setPos()
+            global bubbleSizeX            
+            global bubbleSizeY
+
+            if "argumentTextSize" in debugList:
+                dirTarget = newArgText.toGraphicsObject().boundingRect().size()
+                print(dir(dirTarget))
+                print("argumentTextSize dirTarget:"+str(dirTarget))
+
+            #Getting the text size to position it correctly
+            textSize = newArgText.toGraphicsObject().boundingRect().size().toTuple()
+
+            #newArgText.toGraphicsObject().boundingRect().size()
+
+            newArgText.setPos(clickTargetPos[0]+bubbleSizeX/2-textSize[0]/2,
+                              clickTargetPos[1]+bubbleSizeY/2-textSize[1]/2)
+
+            
+            
+            #print(dir(newArgText))
+            print(clickTarget.pos())
+            
+            #newArgText.setParentItem(clickTarget)
+            
+
+            #textMap.setX(newArgText.x())
+            
+
+            if "argumentCreation" in debugList:
+                #print(dir(newArgText))
+                print("Text inserted into argument")
+                print(clickTarget.pos())
+                #print(dir(textMap))
+                
             self.close()
 
             
@@ -174,7 +229,10 @@ class ClickableBox(QGraphicsEllipseItem):
 
     def mousePressEvent(self,event):
 
-        print("tss")
+        if "mousePressEvent" in debugList:
+            print("MousePress event registered")
+
+        
         
         
 
@@ -196,6 +254,7 @@ class ClickableBox(QGraphicsEllipseItem):
         if event.button() == Qt.MouseButton.LeftButton:
             if "argumentLeftClick" in debugList:
                 print("argumentLeftClick category acknowledged")
+                
 
         #print(self.scenePos())
         
@@ -218,6 +277,8 @@ class ClickableBox(QGraphicsEllipseItem):
         xEv = event.screenPos().toTuple()[0]
         yEv = event.screenPos().toTuple()[1]
         qMe.exec_(qMe.actions(),QPoint(xEv,yEv))
+
+        
         
 
 class ArgumentSettingsMenu(QMenu):
@@ -282,7 +343,17 @@ class EmptyAreaMenu(QMenu):
             #Setting the position for the created item
             
             #nel =
-            nelo.setRect(paikkaX,paikkaY,154,154)           
+
+            #Setting the size 
+            global bubbleSizeX
+            global bubbleSizeY
+
+            
+            
+            nelo.setRect(paikkaX,paikkaY,bubbleSizeX,bubbleSizeY)
+
+            global clickTargetPos
+            clickTargetPos = [paikkaX, paikkaY]
 
             #Opening a dialog box where the argument is
             #given form (Label, text body, ok and cancel buttons)
@@ -371,12 +442,6 @@ class GrSc(QGraphicsScene):
 
         """
         
-        #self.menuCoords = (xEv,yEv)
-
-        #widgettiKeskus["Mouse"] = (xEv,yEv)        
-
-        #print(widgettiKeskus)
-        
     def contextMenuEvent(self,event):
 
         if "contextMenu" in debugList:            
@@ -389,18 +454,6 @@ class GrSc(QGraphicsScene):
         yEv = event.screenPos().toTuple()[1]
         qMe.posStorage = event.scenePos().toTuple()
         qMe.exec_(qMe.actions(),QPoint(xEv,yEv))
-
-        
-        
-        #print(taustaScene.children())
-        #widgettiKeskus["Mouse"] = QPoint(xEv,yEv)
-        #print(taustaScene.items())
-
-    
-
-        
-    
-        
 
 class Form(QDialog):    
 
@@ -426,8 +479,6 @@ class Form(QDialog):
         #Initialization of the scene
         sce = GrSc()
 
-        
-
         #Layout for proper positioning
         layout = QHBoxLayout()      
 
@@ -447,10 +498,6 @@ class Form(QDialog):
         #Adding the rectangle to the scene
         rer = sce.addRect(0,0,20,100)
 
-        
-
-        #rer.setFlag(QGraphicsItem.ItemIsMovable,True)     
-
         def notifyM():
             print("Mouse click received")
 
@@ -465,11 +512,6 @@ class Form(QDialog):
             #Finding the object position to apply relative movement
             poX, poY = rer.pos().toTuple()
 
-            #print(sce.mousePressEvent == True)
-            
-            #Moving the object itself
-            #rer.setPos(poX+3,poY)
-
             #Rotating the object
             rer.rotate(45)
 
@@ -480,22 +522,13 @@ class Form(QDialog):
 
         taustaScene = sce
 
-        
-        
-
         def refreshMousePos():
         
-
             #widgettiKeskus["Mouse"] 
 
             tu = QCursor()
             curse = QCursor.pos()
 
-            #print(dir(tu))
-
-            #print(dir(curse))
-            
-            #print(mousePosition)
             xEv = curse.x()
             yEv = curse.y()
 
@@ -504,11 +537,6 @@ class Form(QDialog):
             #mousePosition = (xEv,yEv)
             
             #print(curse)
-            
-            
-        
-
-        
 
         #Creating a timer
         timer = QTimer(self)
