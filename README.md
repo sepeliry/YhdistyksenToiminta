@@ -25,17 +25,15 @@ X.12. | Oma-aloitteisen veron maksu ja ilmoittaminen | Jos yhdistys on edeltäv�
 1.1.-31.5. | Kevätkokous | Kutsu 7 pv. ennen. Tee hyvissä ajoin vuosikertomus, tilinpäätös ja toiminnantarkastus.
 1.9.-31.12. | Syyskokous | Kutsu 7 pv. ennen. Tee hyvissä ajoin toimintasuunnitelma ja talousarvio.
 
-## Itseopiskelumateriaalit
+## Materiaalit
 
-TODO: kerää lista tähän.
-
-## TODO: Sepelin yhdistysasiat tänne
+Sepelin julkiset materiaalit ovat yhdistyksen [wikissä](https://github.com/sepeliry/YhdistyksenToiminta). Yhdistyksen hallituksella ja aktiiveilla on sinne muokkausoikeudet. Mikäli haluaisit osallistua materiaalipankkimme täydentämiseen, ota yhteyttä hallitukseen.
 
 Esimerkkejä:
-- Hallituksen tärkeät päätökset ja muu tiedotus 
-- Esityslistat, pöytäkirjat
-- Toimintasuunnitelmat ja tulo-menoarviot
-- Toimintakertomukset ym.
+* Yhdistyksen itseopiskelumateriaalit
+* Hallituksen tärkeät päätökset ja muu tiedotus 
+* Toimintasuunnitelmat ja tulo-menoarviot
+* Toimintakertomukset ym.
 
 MUTTA EI NÄITÄ:
 - Jäsenlistoja, allekirjoituksia, sähköpostiosoitteita, tunnuksia tai salasanoja.
