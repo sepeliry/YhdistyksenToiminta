@@ -5,7 +5,13 @@ Sepeli ry eli Seinäjoen Pelikehittäjät on vuoden 2014 syksyllä perustettu vo
 
 ## Tiedotus
 
-Tiedotamme yhdistyksen toimintaan liittyvistä asioista yhdistyksemme [Discord-palvelimella](https://discord.gg/n8Kx8Qm) ja sähköpostilistan kautta. Sähköpostilistalle pääsee [hakemalla jäseneksi](https://goo.gl/forms/E6MraZeXRUn5DE1E3) tai ilmoittamalla halukkuudesta liittyä postituslistalle yhdistyksen sihteerille.
+Tiedotamme yhdistyksen toimintaan liittyvistä asioista yhdistyksemme [Discord-palvelimella](https://discord.gg/n8Kx8Qm) ja sähköpostilistan kautta. Sähköpostilistalle pääsee [hakemalla jäseneksi](https://goo.gl/forms/E6MraZeXRUn5DE1E3) tai ilmoittamalla halukkuudesta liittyä postituslistalle yhdistyksen sihteerille. Edellisten lisäksi meillä on myös muita, joskin aika satunnaisesti, käytössä olevia SOME-kanavia.
+
+[Discord](https://discord.gg/n8Kx8Qm) | [~Facebook~¹](https://www.facebook.com/sepeliry) | [Instagram²](https://www.instagram.com/sepeliry/) | [Twitter/X](https://twitter.com/sepeliry) | [Twitch³](https://www.twitch.tv/sepeliry) | [Github](https://github.com/sepeliry)
+
+¹) Ei enää käytössä, mutta voi sisältää Sepelin historian kannalta kiinnostavaa materiaalia.  
+²) Etsimme halukasta ylläpitäjää.  
+³) Striimaamme satunnaisesti tapahtumia.  
 
 ## Vuosikello
 
