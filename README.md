@@ -27,7 +27,7 @@ X.12. | Oma-aloitteisen veron maksu ja ilmoittaminen | Jos yhdistys on edeltäv�
 
 ## Materiaalit
 
-Sepelin julkiset materiaalit ovat yhdistyksen [wikissä](https://github.com/sepeliry/YhdistyksenToiminta). Yhdistyksen hallituksella ja aktiiveilla on sinne muokkausoikeudet. Mikäli haluaisit osallistua materiaalipankkimme täydentämiseen, ota yhteyttä hallitukseen.
+Sepelin julkiset materiaalit ovat yhdistyksen [wikissä](https://github.com/sepeliry/YhdistyksenToiminta/wiki). Yhdistyksen hallituksella ja aktiiveilla on sinne muokkausoikeudet. Mikäli haluaisit osallistua materiaalipankkimme täydentämiseen, ota yhteyttä hallitukseen.
 
 Esimerkkejä:
 * Yhdistyksen itseopiskelumateriaalit
